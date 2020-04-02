@@ -1,0 +1,6 @@
+#!/usr/bin/env/python
+
+
+secret_key='K0AjiuhgoFKYNOLL4CssdA'
+USER_DB_PATH="user.db"
+DB_PATH="data.db"

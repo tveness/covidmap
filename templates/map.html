@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COVID Mutual Aid Map</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+      <style>
+      .table th {
+        text-align: center;
+      }
+body{
+@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
+	font-family: "Sen", Roboto, Helvtica, Arial !important;
+	font-family-sans-serif: "Sen", Roboto, Helvtica, Arial !important;
+	font-size: 18px;
+}
+.my-custom-scrollbar {
+position: relative;
+height: 800px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+      </style>
+
+
+      </head>
+
+<body class="home">
+<div class="jumbotron jumbotron-fluid text-center">
+<h1>COVID Mutual Aid groups map</h1>
+  </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+<div class="container col-lg-8 mx-auto text-center alert-{{ category }}" > {{ message }} <br/></div>
+{% endfor %}
+{% endwith %}
+
+  <div class="col-lg-10 mx-auto" id="mapid" style="width: 800px; height: 600px;"></div>
+      <script>
+        var mymap=L.map('mapid').setView([38.600,-91.362],4);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidHZlbmVzcyIsImEiOiJjazhpdjQ3eDQwYWF1M2xxbWJsMXFoZm9pIn0.zswYa_hE2DwOFW_R_Ropow', {
+        		maxZoom: 18,
+        		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        		id: 'mapbox/streets-v11',
+        		tileSize: 512,
+        		zoomOffset: -1
+        	}).addTo(mymap);
+{% for i in data %}
+var marker{{i['id']}} = L.marker([{{i['lat']}}, {{i['lng']}}]).addTo(mymap);
+marker{{i['id']}}.bindPopup("<b>{{i['name']}}</b>{{i['description']|markdown}}");
+{% endfor %}
+
+        </script>
+
+        <div class="col-lg-10 mx-auto my-custom-scrollbar table-wrapper-scroll-y" style="padding-top:40px;">
+          <table class="table table-striped">
+        <tr> <th scope="col">Name</th> <th scope="col">Location</th> <th scope="col">Description</th> </tr>
+        {% for i in data%}
+        <tr>
+          <td class="text-center"> {{i['name']}} </td>
+          <td class="text-center"> {{i['desc_location']}} </td>
+          <td class="text-center">{{i['description']|markdown}}
+        </tr>
+        {% endfor %}
+        </table>
+      </div>
+
+</body>
+<div class="jumbotron text-center" style="margin-top:50px; margin-bottom:0px;">
+<a href="/add-group" class="btn btn-primary">Add my group!</a>
+ </div>
+</html>

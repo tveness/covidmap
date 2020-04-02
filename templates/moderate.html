@@ -1,0 +1,30 @@
+  {% extends "index.html" %}
+
+    {% block content %}
+    <div class="container-fluid text-center" id="page-content">
+
+      <h2>View resources</h2>
+
+      <form method="post">
+
+        <div class="table-responsive col-10 mx-auto">
+          <table class="table">
+        <tr> <th>Name</th> <th>Description</th> <th>Location</th> <th> Coords</th> <th>Contact</th> <th>Approve</th></tr>
+        {% for i in unapproved_list %}
+        <tr>
+          <td> {{i['name']}} </td>
+          <td> {{i['description']}} </td>
+          <td> {{i['desc_location']}} </td>
+          <td> lat: {{i['lat']}}  lng: {{i['lng']}}</td>
+          <td> {{i['contact']}}</td>
+          <td> <label class="checkbox-inline"> <input type="checkbox" name="to_approve" value={{i['id']}}> </label> </td>
+        </tr>
+        {% endfor %}
+        </table>
+        </div>
+        <button type="submit" class="btn btn-primary"> Submit</button>
+      </form>
+      </div>
+
+  </div>
+  {% endblock %}
