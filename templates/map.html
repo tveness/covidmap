@@ -66,7 +66,7 @@ display: block;
         	}).addTo(mymap);
 {% for i in data %}
 var marker{{i['id']}} = L.marker([{{i['lat']}}, {{i['lng']}}]).addTo(mymap);
-marker{{i['id']}}.bindPopup('<b>{{i["name"]}}</b>{{i["description"]|markdown}}');
+marker{{i['id']}}.bindPopup('<b>{{i["name"]}}</b>{{(i["description"]|markdown}}).replace('\n','<br>')');
 {% endfor %}
 
         </script>
@@ -87,5 +87,8 @@ marker{{i['id']}}.bindPopup('<b>{{i["name"]}}</b>{{i["description"]|markdown}}')
 </body>
 <div class="jumbotron text-center" style="margin-top:50px; margin-bottom:0px;">
 <a href="/add-group" class="btn btn-primary">Add my group!</a>
+
+<p> Props to <a href="https://itsgoingdown.org/c19-mutual-aid/">It's Going Down</a> for data</p>
+<p>Any questions? <a href="/humans.txt">Contact me!</a></p>
  </div>
 </html>
