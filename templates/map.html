@@ -66,7 +66,7 @@ display: block;
         	}).addTo(mymap);
 {% for i in data %}
 var marker{{i['id']}} = L.marker([{{i['lat']}}, {{i['lng']}}]).addTo(mymap);
-marker{{i['id']}}.bindPopup('<b>{{i["name"]}}</b>{{(i["description"]|markdown).replace("\n","<br>")'}});
+marker{{i['id']}}.bindPopup('<b>{{i["name"]}}</b>{{(i["description"]|markdown).replace("\n","<br>")}}');
 {% endfor %}
 
         </script>
