@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COVID Mutual Aid Map</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+      <style>
+      .table th {
+        text-align: center;
+      }
+body{
+@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
+	font-family: "Sen", Roboto, Helvtica, Arial !important;
+	font-family-sans-serif: "Sen", Roboto, Helvtica, Arial !important;
+	font-size: 18px;
+}
+      </style>
+
+
+      </head>
+<body class="home">
+{% block content %}
+<div class="jumbotron jumbotron-fluid text-center bg-white" style="margin-bottom:0px; padding-bottom:10px; padding-top:20px;">
+{% endblock %}
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+<div class="container col-lg-8 mx-auto text-center alert-{{ category }}" > {{ message }} <br/></div>
+{% endfor %}
+{% endwith %}
+
+
+</body>
+</html>
